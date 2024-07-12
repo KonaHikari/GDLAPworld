@@ -2,8 +2,7 @@
 
 ## later
 
-- character
-  - requires patch
-
-- linux/mac support
-  - clean up IP and build all needed libs
+#remove logic for wing keys from base rules
+#find out why new RK locations aren't added
+#find out why logic seems to think TR can be accessed without wing keys
+#add support for multiplayer

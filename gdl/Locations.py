@@ -71,11 +71,22 @@ treasure_rooms_location_table = {
     LocationNames.tr_bf: base_id + 210+9,
 }
 
+region_key_location_table = {
+    LocationNames.rk_fp: base_id + 218+1,
+    LocationNames.rk_mk: base_id + 218+2,
+    LocationNames.rk_cs: base_id + 218+3,
+    LocationNames.rk_sd: base_id + 218+4,
+    LocationNames.rk_fr: base_id + 218+5,
+    LocationNames.rk_dl: base_id + 218+6,
+    LocationNames.rk_id: base_id + 218+7,
+    LocationNames.rk_dw: base_id + 218+8,
+}
 location_table: typing.Dict[str, typing.Optional[int]] = {
     **runes_location_table,  # 0 - 99
     **boss_location_table,  # 100 - 179
     **legendary_weapons_location_table,  # 180 - 182
     **treasure_rooms_location_table,  # 183 - 233
+    **region_key_location_table,
     LocationNames.credits: None
 }
 

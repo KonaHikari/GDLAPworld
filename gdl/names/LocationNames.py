@@ -58,5 +58,15 @@ tr_id = f"{RegionNames.id00}:{RegionNames.id01} Ogre"
 tr_dw = f"{RegionNames.dw00}:{RegionNames.dw03} Hyena"
 tr_bf = f"{RegionNames.bf00}:{RegionNames.bf02} Sumner"
 
+# Region Key locations
+rk_fp = f"Collect all {LevelNames.fp} shards"
+rk_mk = f"Collect all {LevelNames.mk} shards"
+rk_cs = f"Collect all {LevelNames.cs} shards"
+rk_sd = f"Collect all {LevelNames.sd} shards"
+rk_fr = f"Collect all {LevelNames.fr} shards"
+rk_dl = f"Collect all {LevelNames.dl} shards"
+rk_id = f"Collect all {LevelNames.id} shards"
+rk_dw = f"Collect all {LevelNames.dw} shards"
+
 
 credits = "Credits"

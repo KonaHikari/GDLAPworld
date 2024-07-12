@@ -1,13 +1,8 @@
 import typing
 from BaseClasses import Item, ItemClassification
 from .names import ItemNames
-from typing import List
 
-cen_and_west: List[str] = [
-    ItemNames.region_key_mk,
-    ItemNames.region_key_cs,
-    ItemNames.region_key_sd,
-    ItemNames.region_key_fr]
+
 
 class ItemData(typing.NamedTuple):
     id: typing.Optional[int]

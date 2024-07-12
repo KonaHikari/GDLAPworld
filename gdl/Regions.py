@@ -2,7 +2,7 @@ from typing import List, Dict
 
 from . import GDLOptions
 from .Locations import GDLLocation, location_table, \
-    runes_location_table, boss_location_table, legendary_weapons_location_table, treasure_rooms_location_table
+    runes_location_table, boss_location_table, legendary_weapons_location_table, treasure_rooms_location_table, region_key_location_table
 from .names import ConnectionNames, LevelNames, RegionNames, LocationNames
 
 from BaseClasses import MultiWorld, Region, Entrance

@@ -19,10 +19,11 @@ from .Rom import GDLDeltaPatch
 
 
 class CheckTypes(Flag):
-    Runestones = 0
-    Bosses = 0
-    Legendary_Weapons = 0
-    Treasure_Room = 0
+    Runestones = 1
+    Bosses = 2
+    Legendary_Weapons = 4
+    Treasure_Room = 8
+    Region_Key = 16
 
 
 
@@ -79,453 +80,133 @@ SAVED_SEED_ADDR = SAVED_SLOT_NAME_ADDR + 0x40
 # some custom code at 0x817f0080
 
 
-# Changes to HIPs needed
-# remove GiveCollectable link from King JF in JF04
-# remove Decrement BALLOON_COUNTER and GiveCollectable links from GL01 balloon platforms
-# remove Decrement BALLOON_COUNTER from GL01 BALLON_X_COUNT_DISP
-# remove GiveCollectable links from bc02/bc03/bc04 sec buttons
-# remove Decrement SANDMAN_COUNTER links from sm03 sandmans
-# remove GiveCollectable links from kf01/kf02/kf04 lost camper triggers
-# remove Increment MATTS_CRYSTAL_COUNTER link from kf04 powercrystals
-# remove Decrement BUTTON_COUNTER and GiveCollectable links from gy03 buttons 1-4
-# remove Decrement BUTTON_COUNTER from gy03 BUTTON_DISPs
-# remove GivePowerUp from b101 DeathCutscene and b201 RoboPatrickNPC
 
 base_id = 5240216
 
 RUNES_PICKUP_IDS = {
-    (base_id + 100 + 0): (b'HB01', 0x39fe1ac4),  # poison field runestone
-    (base_id + 100 + 1): (b'HB01', 0x39fe1ac5),  # mausoleum runestone
-    (base_id + 100 + 2): (b'HB01', 0x39fe1ac7),  # peaks runestone
-    # (base_id + 100 + ?): (b'HB01', 0x7fd6ed10), # TEMP SOCK??
-    (base_id + 100 + 3): (b'HB02', 0x39fe1ac4),  # armory runestone
-    (base_id + 100 + 4): (b'HB03', 0x39fe1ac4),  # cloud docks runestone
-    (base_id + 100 + 5): (b'HB04', 0x39fe1ac4),  # mothership
-    (base_id + 100 + 6): (b'HB06', 0x39fe1ac4),  # twisted roots
-    (base_id + 100 + 7): (b'HB07', 0x8361f615),  # city ruins
-    (base_id + 100 + 8): (b'JF01', 0x39fe1ac4),  # frozen camp
-    (base_id + 100 + 9): (b'JF01', 0x39fe1ac5),  # crystal mine
-    (base_id + 100 + 10): (b'JF01', 0x39fe1ac6),  # nightmare
-    (base_id + 100 + 11): (b'JF01', 0x39fe1ac7),  # maze
-    (base_id + 100 + 12): (b'JF01', 0x39fe1ac8),  # fortress
-
-    (base_id + 100 + 13): (b'JF01', 0x39fe1ac9),  # lich shard
-    (base_id + 100 + 14): (b'JF02', 0x39fe1ac4),  # dragon shard
-    (base_id + 100 + 15): (b'JF02', 0x39fe1ac5),  # chimera shard
-    (base_id + 100 + 16): (b'JF02', 0x39fe1ac6),  # plague fiend
-    (base_id + 100 + 17): (b'JF02', 0x39fe1ac7),  # spider queen shard
-    (base_id + 100 + 18): (b'JF03', 0x485e3882),  # 
-    (base_id + 100 + 19): (b'JF03', 0x485e3883),  # flying tiki minigame
-    (base_id + 100 + 20): (b'JF03', 0x485e3884),  # plat near waterfall
-    (base_id + 100 + 21): (b'JF04', 0x8269bea9),  # on slide
-    (base_id + 100 + 22): (b'BB01', 0x7319bbfc),  # on broken house
-    (base_id + 100 + 23): (b'BB01', 0x7319bbfd),  # in broken house by tartar
-    (base_id + 100 + 24): (b'BB01', 0x7319bbfe),  # on floating plat
-    (base_id + 100 + 25): (b'BB01', 0x7319bbff),  # on copper house railing
-    (base_id + 100 + 26): (b'BB02', 0x08857ce6),  # on windmill
-    (base_id + 100 + 27): (b'BB02', 0x08857ce7),  # on orange rooftop/ under slide
-    (base_id + 100 + 28): (b'BB02', 0x08857ce8),  # behind lighthouse
-    (base_id + 100 + 29): (b'BB03', 0x4d73f257),  # in lighthouse
-    (base_id + 100 + 30): (b'BB04', 0x7319bbfc),  # in sea needle
-    (base_id + 100 + 31): (b'GL01', 0x70848599),  # on watchtower on island
-    (base_id + 100 + 32): (b'GL01', 0x7084859a),  # in sand castle
-    (base_id + 100 + 33): (b'GL01', 0x7084859b),  # on juice bar
-    (base_id + 100 + 34): (b'GL01', 0x7084859c),  # on top of sand castle
-    (base_id + 100 + 35): (b'GL01', 0x7084859d),  # on sand castle entrance gate
-    (base_id + 100 + 36): (b'GL02', 0x70848599),  # under ledge in cave
-    (base_id + 100 + 37): (b'GL02', 0x7084859a),  # on water in cave
-    (base_id + 100 + 38): (b'GL02', 0x7084859b),  # on side ledge in cave
-    (base_id + 100 + 39): (b'GL03', 0x93d05cf9),  # tiki minigame
-    (base_id + 100 + 40): (b'GL03', 0x93d05cfa),  # ice skating dupli
-    (base_id + 100 + 41): (b'GL03', 0x93d05cfb),  # on booth
-    (base_id + 100 + 42): (b'RB01', 0xa17bd220),  # on roof near elevator
-    (base_id + 100 + 43): (b'RB01', 0xa17bd221),  # on rock
-    (base_id + 100 + 44): (b'RB01', 0xa17bd222),  # near slide
-    (base_id + 100 + 45): (b'RB02', 0xa122b810),  # near exit ledge
-    (base_id + 100 + 46): (b'RB02', 0xa122b811),  # midway right ledge
-    (base_id + 100 + 47): (b'RB02', 0xa122b812),  # on entrance
-    (base_id + 100 + 48): (b'RB03', 0x7b0c4887),  # bungee
-    (base_id + 100 + 49): (b'RB03', 0x7b0c4888),  # near dupli
-    (base_id + 100 + 50): (b'RB03', 0x7b0c4889),  # button under laser plat
-    (base_id + 100 + 51): (b'BC01', 0x93d05cf9),  # bungee
-    (base_id + 100 + 52): (b'BC02', 0x4d73f257),  # top of middle plat
-    (base_id + 100 + 53): (b'BC03', 0x93d05cf9),  # clamp
-    (base_id + 100 + 54): (b'BC04', 0x93d05cf9),  # behind tilting plat
-    (base_id + 100 + 55): (b'SM01', 0x4d73f257),  # below bridge
-    (base_id + 100 + 56): (b'SM01', 0x4d73f258, 0xa255034a),  # snowman
-    (base_id + 100 + 57): (b'SM02', 0x4d73f257),  # legde near start
-    (base_id + 100 + 58): (b'SM02', 0x4d73f258),  # underpass
-    (base_id + 100 + 59): (b'SM02', 0x4d73f259),  # plat near end
-    (base_id + 100 + 60): (b'SM03', 0x4a531868),  # at end
-    (base_id + 100 + 61): (b'SM03', 0x4a531869),  # on last tunnel near end
-    (base_id + 100 + 62): (b'SM04', 0x4a531868),  # top ledge near start
-    (base_id + 100 + 63): (b'SM04', 0x4a531869),  # in cave
-    (base_id + 100 + 64): (b'SM04', 0x4a53186a),  # on ice plat
-    (base_id + 100 + 65): (b'KF01', 0x8361f615),  # on high plat near puff
-    (base_id + 100 + 66): (b'KF01', 0x8361f616),  # at waterfall near kid
-    (base_id + 100 + 67): (b'KF01', 0x8361f617),  # tiki bowling
-    (base_id + 100 + 68): (b'KF02', 0x39fe1ac4),  # on ledge with glove
-    (base_id + 100 + 69): (b'KF02', 0x39fe1ac5),  # on tiki stack near arf
-    (base_id + 100 + 70): (b'KF04', 0xa9fa6889),  # on ledge near ent/box
-    (base_id + 100 + 71): (b'KF05', 0x4d9f3243),  # on slide halfway-ish
-    (base_id + 100 + 72): (b'GY01', 0x93d05cf9),  # on plat in middle
-    (base_id + 100 + 73): (b'GY02', 0x93d05cf9),  # inside ship wreck
-    (base_id + 100 + 74): (b'GY03', 0x93d05cf9),  # on rope
-    (base_id + 100 + 75): (b'DB02', 0x4a531868),  # on top ledge after swinger before skulls
-    (base_id + 100 + 76): (b'DB02', 0x4a531869),  # oil tower bottom
-    (base_id + 100 + 77): (b'DB02', 0x4a53186a),  # swingers plat
-    (base_id + 100 + 78): (b'DB03', 0x93d05cf9),  # in air at tramp
-    (base_id + 100 + 79): (b'DB04', 0x93d05cf9),  # on floating tiki
+    (base_id + 0): (None, ),  # poison field runestone
+    (base_id + 1): (None, ),  # mausoleum runestone
+    (base_id + 8): (None, ),  # peaks runestone
+    (base_id + 16): (None, ),  # armory runestone
+    (base_id + 24): (None, ),  # cloud docks runestone
+    (base_id + 25): (None, ),  # mothership
+    (base_id + 32): (None, ),  # twisted roots
+    (base_id + 33): (None, ),  # city ruins
+    (base_id + 41): (None, ),  # frozen camp
+    (base_id + 42): (None, ),  # crystal mine
+    (base_id + 49): (None, ),  # nightmare
+    (base_id + 50): (None, ),  # maze
+    (base_id + 57): (None, ),  # fortress
 }
+
 # (spat name, scene id, id)
 BOSS_PICKUP_IDS = {
-    (base_id + 0): (b'HB01', 0xe0886670),
-    (base_id + 1): (b'HB01', 0xe0886671),
-    (base_id + 2): (b'HB01', 0xe0886672),
-    (base_id + 3): (b'HB02', 0x35e915c0),
-    (base_id + 4): (b'HB03', 0x23264b51),
-    (base_id + 5): (b'HB05', 0xb7fd0b01),
-    (base_id + 6): (b'HB01', 0xe0886675),
-    (base_id + 7): (b'HB08', 0xf70f6fe7),
-    (base_id + 8): (b'JF01', 0xe5cc6afe),
-    (base_id + 9): (b'JF01', 0xe5cc6aff),
-    
-    (base_id + 10): (b'JF02', 0xcaaacd23),
-    (base_id + 11): (b'JF02', 0xcaaacd22),
-    (base_id + 12): (b'JF03', 0x1bd186f6),
-    (base_id + 13): (b'JF03', 0x1bd186f5),
-    (base_id + 14): (b'JF04', 0x6a90778d),
-    (base_id + 15): (b'JF01', 0xe5cc6b00),
-    (base_id + 16): (b'BB01', 0xc763bce0),
-    (base_id + 17): (b'BB01', 0xc763bce1),
-    (base_id + 18): (b'BB01', 0xc763bce2),
-    (base_id + 19): (b'BB02', 0xc763bce0),
-    (base_id + 20): (b'BB02', 0xc763bce1),
-    (base_id + 21): (b'BB03', 0x35e915c0),
-    (base_id + 22): (b'BB04', 0x35e915c0),
-    (base_id + 23): (b'BB04', 0x35e915c1),
-    (base_id + 24): (b'GL01', 0xf70f6fe7),
-    (base_id + 25): (b'GL01', 0xf70f6fe8),
-    (base_id + 26): (b'GL01', 0xf70f6fe9),
-    (base_id + 27): (b'GL01', 0xf70f6fea),
-    (base_id + 28): (b'GL02', 0xf70f6feb),
-    (base_id + 29): (b'GL03', 0xf70f6fec),
-    (base_id + 30): (b'GL03', 0xf70f6fed),
-    (base_id + 31): (b'GL03', 0xf70f6fee),
-    (base_id + 32): (b'B101', 0xe13ad616),
-    (base_id + 33): (b'RB01', 0x0f74bf40),
-    (base_id + 34): (b'RB01', 0x0f74bf41),
-    (base_id + 35): (b'RB01', 0x0f74bf42),
-    (base_id + 36): (b'RB01', 0x0f74bf43),
-    (base_id + 37): (b'RB02', 0x0f74bf40),
-    (base_id + 38): (b'RB03', 0x35e915c1),
-    (base_id + 39): (b'RB03', 0x35e915c0),
-    (base_id + 40): (b'RB03', 0x35e915c2),
-    (base_id + 41): (b'BC01', 0xf70f6fe7),
-    (base_id + 42): (b'BC02', 0xf70f6fe8),
-    (base_id + 43): (b'BC02', 0xf70f6fe9),
-    (base_id + 44): (b'BC02', 0xf70f6fea),
-    (base_id + 45): (b'BC02', 0xf70f6feb),
-    (base_id + 46): (b'BC03', 0xf70f6fec),
-    (base_id + 47): (b'BC04', 0xf70f6fed),
-    (base_id + 48): (b'BC05', 0xf70f6fee),
-    (base_id + 49): (b'SM01', 0x35e915c0),
-    (base_id + 50): (b'SM01', 0x35e915c1),
-    (base_id + 51): (b'SM02', 0xe877614a),
-    (base_id + 52): (b'SM02', 0xe877614b),
-    (base_id + 53): (b'SM03', 0xf70f6fe7),
-    (base_id + 54): (b'SM03', 0xf70f6fe8),
-    (base_id + 55): (b'SM04', 0x35e915c0),
-    (base_id + 56): (b'SM04', 0x35e915c1),
-    (base_id + 57): (b'B201', 0x35e915c0),
-    (base_id + 58): (b'KF01', 0x69f03106),
-    (base_id + 59): (b'KF01', 0x69f03107),
-    (base_id + 60): (b'KF02', 0x2af58ccd),
-    (base_id + 61): (b'KF02', 0x2af58cce),
-    (base_id + 62): (b'KF04', 0x35e915c4),
-    (base_id + 63): (b'KF04', 0x35e915c5),
-    (base_id + 64): (b'KF05', 0xf70f6fe7),
-    (base_id + 65): (b'KF05', 0xf70f6fe8),
-    (base_id + 66): (b'GY01', 0xf70f6fe7),
-    (base_id + 67): (b'GY01', 0xf70f6fe8),
-    (base_id + 68): (b'GY01', 0xf70f6fe9),
-    (base_id + 69): (b'GY02', 0xf70f6fea),
-    (base_id + 70): (b'GY02', 0xf70f6feb),
-    (base_id + 71): (b'GY03', 0xf70f6fec),
-    (base_id + 72): (b'GY03', 0xf70f6fed),
-    (base_id + 73): (b'GY04', 0xf70f6fee),
-    (base_id + 74): (b'DB01', 0x35e915c0),
-    (base_id + 75): (b'DB01', 0x35e915c1),
-    (base_id + 76): (b'DB02', 0x0f74bf40),
-    (base_id + 77): (b'DB02', 0x0f74bf41),
-    (base_id + 78): (b'DB03', 0xf70f6feb),
-    (base_id + 79): (b'DB04', 0x35e915c5),
-    (base_id + 80): (b'DB01', 0x35e915c6),
-    (base_id + 81): (b'DB05', 0x35e915c7),
-    (base_id + 82): (b'B302', 0xf70f6fe7),
-    (base_id + 83): (b'B302', 0xf70f6fe8),
-    (base_id + 84): (b'HB01', 0xc08d3390),
-    (base_id + 85): (b'HB01', 0xc08d3391),
-    (base_id + 86): (b'HB01', 0xc08d3392),
-    (base_id + 87): (b'HB01', 0xc08d3393),
-    (base_id + 88): (b'HB01', 0xc08d3394),
-    (base_id + 89): (b'HB01', 0xc08d3395),
-    (base_id + 90): (b'HB01', 0xc08d3396),
-    (base_id + 91): (b'HB01', 0xc08d3397),
-    (base_id + 92): (b'HB01', 0xecd3e66c, 0xecd3e6ef, 0xecd32772),
-    (base_id + 93): (b'HB01', 0xecd3e66d, 0xecd3e6f0, 0xecd32773),
-    (base_id + 94): (b'HB01', 0xecd3e66e, 0xecd3e6f1, 0xecd32774),
-    (base_id + 95): (b'HB01', 0xecd3e66f, 0xecd3e6f2, 0xecd32775),
-    (base_id + 96): (b'HB01', 0xecd3e670, 0xecd3e6f3, 0xecd32776),
-    (base_id + 97): (b'HB01', 0xecd3e671, 0xecd3e6f4, 0xecd32777),
-    (base_id + 98): (b'HB01', 0xecd3e672, 0xecd3e6f5, 0xecd32778),
-    (base_id + 99): (b'HB01', 0xecd3e673, 0xecd3e6f6, 0xecd32779),
+    (base_id + 100+0): (None, ),
+    (base_id + 100+1): (None, ),
+    (base_id + 100+2): (None, ),
+    (base_id + 100+3): (None, ),
+    (base_id + 100+4): (None, ),
+    (base_id + 100+5): (None, ),
+    (base_id + 100+6): (None, ),
+    (base_id + 100+7): (None, ),
+    (base_id + 100+8): (None, ),
+    (base_id + 100+9): (None, ),
 }
-LW_COUNTER_IDS = {
-    (base_id + 0): (None, 0x5f45b825),
-    (base_id + 1): (None, 0x5f45b826),
-    (base_id + 2): (None, 0x5f45b827),
-    (base_id + 3): (None, 0x5f45b828),
-    (base_id + 4): (None, 0x5f45b829),
-    (base_id + 5): (None, 0x5f45b82a),
-    (base_id + 6): (None, 0x5f45b82b),
-    (base_id + 7): (None, 0x5f45b82c),
-    (base_id + 8): (None, 0x5caad1af),
-
-    (base_id + 9): (None, 0x5caad1b0),
-    (base_id + 10): (None, 0x5caad1b1),
-    (base_id + 11): (None, 0x5caad1b2),
-    (base_id + 12): (None, 0x5caad1b3),
-    (base_id + 13): (None, 0x5caad1b4),
-    (base_id + 14): (None, 0x5caad1b5),
-    (base_id + 15): (None, 0x5caad1b6),
-    (base_id + 16): (None, 0x9af0a293),
-    (base_id + 17): (None, 0x9af0a294),
-    (base_id + 18): (None, 0x9af0a295),
-    (base_id + 19): (None, 0x9af0a296),
-    (base_id + 20): (None, 0x9af0a297),
-    (base_id + 21): (None, 0x9af0a298),
-    (base_id + 22): (None, 0x9af0a299),
-    (base_id + 23): (None, 0x9af0a29a),
-    (base_id + 24): (None, 0x946d626c),
-    (base_id + 25): (None, 0x946d626d),
-    (base_id + 26): (None, 0x946d626e),
-    (base_id + 27): (None, 0x946d626f),
-    (base_id + 28): (None, 0x946d6270),
-    (base_id + 29): (None, 0x946d6271),
-    (base_id + 30): (None, 0x946d6272),
-    (base_id + 31): (None, 0x946d6273),
-    (base_id + 32): (None, 0x917b7f42),
-    (base_id + 33): (None, 0xfbd386c3),
-    (base_id + 34): (None, 0xfbd386c4),
-    (base_id + 35): (None, 0xfbd386c5),
-    (base_id + 36): (None, 0xfbd386c6),
-    (base_id + 37): (None, 0xfbd386c7),
-    (base_id + 38): (None, 0xfbd386c8),
-    (base_id + 39): (None, 0xfbd386c9),
-    (base_id + 40): (None, 0xfbd386ca),
-    (base_id + 41): (None, 0x5f42d1d4),
-    (base_id + 42): (None, 0x5f42d1d5),
-    (base_id + 43): (None, 0x5f42d1d6),
-    (base_id + 44): (None, 0x5f42d1d7),
-    (base_id + 45): (None, 0x5f42d1d8),
-    (base_id + 46): (None, 0x5f42d1d9),
-    (base_id + 47): (None, 0x5f42d1da),
-    (base_id + 48): (None, 0x5f42d1db),
-    (base_id + 49): (None, 0xe169bcd1),
-    (base_id + 50): (None, 0xe169bcd2),
-    (base_id + 51): (None, 0xe169bcd3),
-    (base_id + 52): (None, 0xe169bcd4),
-    (base_id + 53): (None, 0xe169bcd5),
-    (base_id + 54): (None, 0xe169bcd6),
-    (base_id + 55): (None, 0xe169bcd7),
-    (base_id + 56): (None, 0xe169bcd8),
-    (base_id + 57): (None, 0x55cdae83),
-    (base_id + 58): (None, 0xd2b8fff2),
-    (base_id + 59): (None, 0xd2b8fff3),
-    (base_id + 60): (None, 0xd2b8fff4),
-    (base_id + 61): (None, 0xd2b8fff5),
-    (base_id + 62): (None, 0xd2b8fff6),
-    (base_id + 63): (None, 0xd2b8fff7),
-    (base_id + 64): (None, 0xd2b8fff8),
-    (base_id + 65): (None, 0xd2b8fff9),
-    (base_id + 66): (None, 0x8c99c8b9),
-    (base_id + 67): (None, 0x8c99c8ba),
-    (base_id + 68): (None, 0x8c99c8bb),
-    (base_id + 69): (None, 0x8c99c8bc),
-    (base_id + 70): (None, 0x8c99c8bd),
-    (base_id + 71): (None, 0x8c99c8be),
-    (base_id + 72): (None, 0x8c99c8bf),
-    (base_id + 73): (None, 0x8c99c8c0),
-    (base_id + 74): (None, 0x870cff19),
-    (base_id + 75): (None, 0x870cff1a),
-    (base_id + 76): (None, 0x870cff1b),
-    (base_id + 77): (None, 0x870cff1c),
-    (base_id + 78): (None, 0x870cff1d),
-    (base_id + 79): (None, 0x870cff1e),
-    (base_id + 80): (None, 0x870cff1f),
-    (base_id + 81): (None, 0x870cff20),
-    (base_id + 82): (None, 0x1a1fddc4),
-    (base_id + 83): (None, 0x1a1fddc5),
-    (base_id + 84): (None, 0x192c4d8e),
-    (base_id + 85): (None, 0x192c4d8f),
-    (base_id + 86): (None, 0x192c4d90),
-    (base_id + 87): (None, 0x192c4d91),
-    (base_id + 88): (None, 0x192c4d92),
-    (base_id + 89): (None, 0x192c4d93),
-    (base_id + 90): (None, 0x192c4d94),
-    (base_id + 91): (None, 0x192c4d95),
-    (base_id + 92): (None, 0xcae5663f),
-    (base_id + 93): (None, 0xcae56640),
-    (base_id + 94): (None, 0xcae56641),
-    (base_id + 95): (None, 0xcae56642),
-    (base_id + 96): (None, 0xcae56643),
-    (base_id + 97): (None, 0xcae56644),
-    (base_id + 98): (None, 0xcae56645),
-    (base_id + 99): (None, 0xcae56646),
-}
-# golden underware ids
-# 0x3E3DE77 - 79
-GOLDEN_UNDERWEAR_IDS = {
-    (base_id + 180): (b'HB01', 0x3E3DE77),
-    (base_id + 181): (b'HB01', 0x3E3DE78),
-    (base_id + 182): (b'HB01', 0x3E3DE79)
+LW_PICKUP_IDS = {
+    (base_id + 183 + 0): (None, ),
+    (base_id + 183 + 1): (None, ),
+    (base_id + 183 + 2): (None, ),
+    (base_id + 183 + 3): (None, ),
+    (base_id + 183 + 4): (None, ),
+    (base_id + 183 + 5): (None, ),
+    (base_id + 183 + 6): (None, ),
+    (base_id + 183 + 7): (None, ),
+    (base_id + 183 + 8): (None, ),
 }
 
 TREASURE_ROOMS_PICKUP_IDS = {
-    (base_id + 183 + 1): (b'BB01', 0x62f79b31),  # Medusa
-    (base_id + 183 + 2): (b'BB01', 0x62f79b32),  # Minotaur
-    (base_id + 183 + 3): (b'BB01', 0x62f79b33),  # Falconess
-    (base_id + 183 + 4): (b'BB01', 0x62f79b34),  # Unicorn
-    (base_id + 183 + 5): (b'BB01', 0x62f79b35),  # tirgress
-    (base_id + 183 + 6): (b'BB02', 0xa8d10901),  # jackal
-    (base_id + 183 + 7): (b'BB02', 0xa8d10902),  # ogre
-    (base_id + 183 + 8): (b'BB02', 0xa8d10903),  # hyena
-    (base_id + 183 + 9): (b'BB03', 0x03f22dda),  # sumner
+    (base_id + 210 + 1): (None, ),  # Medusa
+    (base_id + 210 + 2): (None, ),  # Minotaur
+    (base_id + 210 + 3): (None, ),  # Falconess
+    (base_id + 210 + 4): (None, ),  # Unicorn
+    (base_id + 210 + 5): (None, ),  # tirgress
+    (base_id + 210 + 6): (None, ),  # jackal
+    (base_id + 210 + 7): (None, ),  # ogre
+    (base_id + 210 + 8): (None, ),  # hyena
+    (base_id + 210 + 9): (None, ),  # sumner
     
-    (base_id + 183 + 10): (b'BB04', 0x62f79b31),  # east door sea needle
-    (base_id + 183 + 11): (b'BB04', 0x62f79b32),  # north door sea needle
-}
-BALLOON_KID_COUNTER_ID = (b'GL01', 0xa6662680)
-BALLOON_KID_TASKBOX_ID = (b'GL01', 0xa416ce3b)
-BALLOON_KID_SUC_TRIG_ID = (b'GL01', 0xa4883601)
-BALLOON_KID_PLAT_IDS = {
-    (base_id + 183 + 12): (b'GL01', 0x3db4fe59),  # near puff
-    (base_id + 183 + 13): (b'GL01', 0x393949cc),  # near swinging logs
-    (base_id + 183 + 14): (b'GL01', 0x34bd953f),  # near sinking logs
-    (base_id + 183 + 15): (b'GL01', 0x3041e0b2),  # on water 1
-    (base_id + 183 + 16): (b'GL01', 0x2bc62c25),  # on water 2
-}
-ART_WORK_IDS = {
-    (base_id + 183 + 17): (b'RB01', 0xcad32f04),  # near tramp
-    (base_id + 183 + 18): (b'RB01', 0xcad32f05),  # near start
-    (base_id + 183 + 19): (b'RB02', 0xcad32f06),  # bottom
-    (base_id + 183 + 20): (b'RB02', 0xcad32f07),  # near exit
-    (base_id + 183 + 21): (b'RB03', 0x40152776),  # behind laser
-    (base_id + 183 + 22): (b'RB03', 0x40152777),  # on sleepytime plat
-}
-OVERRIDE_BUTTON_IDS = {
-    (base_id + 183 + 23): (b'BC02', 0x5e64831b),  # at comp
-    (base_id + 183 + 24): (b'BC02', 0x5e64831c),  # at lasers
-    (base_id + 183 + 25): (b'BC03', 0x91f2a6cf),  # top tunnel
-    (base_id + 183 + 26): (b'BC04', 0xc1841225),  # ball
-}
-SANDMAN_SOCK_ID = SOCK_PICKUP_IDS[(base_id + 100 + 60)]
-SANDMAN_CNTR_ID = (b'SM03', 0xc4e703d6)  # starts at 8
-SANDMAN_DSTR_IDS = {
-    (base_id + 183 + 27): (b'SM03', 0xd4d3bec2),  # at start
-    (base_id + 183 + 28): (b'SM03', 0xd4d3bec3),  # lower path after first turn
-    (base_id + 183 + 29): (b'SM03', 0xd4d3bec4),  # on shortcut
-    (base_id + 183 + 30): (b'SM03', 0xd4d3bec5),  # on right spiral
-    (base_id + 183 + 31): (b'SM03', 0xd4d3bec6),  # on left spiral
-    (base_id + 183 + 32): (b'SM03', 0xd4d3bec7),  # middle of 1st 3-way split near end
-    (base_id + 183 + 33): (b'SM03', 0xd4d3bec8),  # left path of 1st 3-way split near end
-    (base_id + 183 + 34): (b'SM03', 0xd4d3bec9),  # on turn after cave
-}
-LOST_CAMPER_TRIG_IDS = {
-    (base_id + 183 + 35): (b'KF01', 0x153CCF73),  # near puff
-    (base_id + 183 + 36): (b'KF01', 0x153CCF74),  # near waterfall
-    (base_id + 183 + 37): (b'KF01', 0x153CCF75),  # near exit
-    (base_id + 183 + 38): (b'KF02', 0x9c2d8bb3),  # not at gate 4Head
-    (base_id + 183 + 39): (b'KF02', 0x9c2d8bb4),  # at gate
-    (base_id + 183 + 40): (b'KF04', 0x609203fd),  # near end
-}
-POWERCRYSTAL_TASKBOX_IDS = [
-    (b'KF04', 0xed5ab88e),  # bob
-    (b'KF04', 0x419f15d3),  # pat
-]
-POWERCRYSTAL_COUNTER_ID = (b'KF04', 0xed81694f)
-POWERCRYSTAL_PICKUP_IDS = {
-    (base_id + 183 + 41): (b'KF04', 0x96017696),  # behind 1st gate
-    (base_id + 183 + 42): (b'KF04', 0x96017697),  # top water room before 2 gate near button
-    (base_id + 183 + 43): (b'KF04', 0x96017698),  # top near 3 gate
-    (base_id + 183 + 44): (b'KF04', 0x96017699),  # top big room
-    (base_id + 183 + 45): (b'KF04', 0x9601769a),  # top tall vine
-    (base_id + 183 + 46): (b'KF04', 0x9601769b),  # top last room
-}
 
-# CANNON_BUTTON_COUNTER_ID = 0x9a101de7
-CANNON_BUTTON_DISP_IDS = [
-    (b'GY03', 0x46d4fa25),
-    (b'GY03', 0x46d4fa26),
-    (b'GY03', 0x46d4fa27),
-    (b'GY03', 0x46d4fa28),
-]
-CANNON_BUTTON_SPAT_ID = SPAT_PICKUP_IDS[(base_id + 71)]
-CANNON_BUTTON_PLAT_IDS = [
-    (b'GY03', 0x6d1f11b4),  # spring
-    (b'GY03', 0xc60e4bcf),  # chest closed
-    (b'GY03', 0x5950cb1d),  # chest open
-]
-# CANNON_DONE_DISP_ID = (b'GY03', 0x979347fd)
-CANNON_BUTTON_IDS = {
-    (base_id + 183 + 47): (b'GY03', 0x1344a38c),  # on deck
-    (base_id + 183 + 48): (b'GY03', 0x1344a38d),  # on middle mast
-    (base_id + 183 + 49): (b'GY03', 0x1344a38e),  # on front mast
-    (base_id + 183 + 50): (b'GY03', 0x1344a38f),  # near steering wheel
-    # (b'GY03', 0x1344a390), # in chest
 }
-PURPLE_SO_IDS = {
-    (base_id + 236 + 0): (b'HB01', 0x2f49f01c),  # behind CB
-    (base_id + 236 + 1): (b'JF01', 0xc94ad407),  # on island
-    (base_id + 236 + 2): (b'JF02', 0x2193f576),  # on goo
-    (base_id + 236 + 3): (b'JF03', 0xb75df2ce),  # on goo under bridge
-    (base_id + 236 + 4): (b'JF04', 0x2193f576),  # on slide
-    (base_id + 236 + 5): (b'BB01', 0xffd417af),  # at fenced off glove near lighthouse
-    (base_id + 236 + 6): (b'BB01', 0x2193f576),  # on platform near lighthouse
-    (base_id + 236 + 7): (b'BB02', 0xf68f73a6),  # on flying platform
-    (base_id + 236 + 8): (b'BB02', 0xf68f73a7),  # on top of windmill blades
-    (base_id + 236 + 9): (b'BB03', 0xf68f73a6),  # in tiki stack
-    (base_id + 236 + 10): (b'BB04', 0x2193f576),  # south door
-    (base_id + 236 + 11): (b'GL01', 0x2193f576),  # end of log path near ms puff
-    (base_id + 236 + 12): (b'GL02', 0x2193f576),  # on ledge under checkpoint
-    (base_id + 236 + 13): (b'GL03', 0x2193f576),  # on tikis after slide
-    (base_id + 236 + 14): (b'RB01', 0x752e0aa8),  # under swing along spat
-    (base_id + 236 + 15): (b'RB02', 0x6d07a8bc),  # near roof
-    (base_id + 236 + 16): (b'RB03', 0x6d07a8bc),  # on tikis near exit
-    (base_id + 236 + 17): (b'BC01', 0x2193f576),  # dupli bowling
-    (base_id + 236 + 18): (b'BC02', 0x2193f576),  # in hidden cave near entrance
-    (base_id + 236 + 19): (b'BC02', 0x2193f577),  # on slide
-    (base_id + 236 + 20): (b'BC03', 0x2193f576),  # above disco floor/ about half way
-    (base_id + 236 + 21): (b'BC04', 0x2193f576),  # in ball dispenser
-    (base_id + 236 + 22): (b'SM01', 0x2193f576),  # on ledge near entrance
-    (base_id + 236 + 23): (b'SM02', 0x6b9489ab),  # on slide under tiki
-    (base_id + 236 + 24): (b'SM02', 0x6b9489ac),  # on stone arc
-    (base_id + 236 + 25): (b'SM04', 0xf68f73a6),  # in cave on drop to exit
-    (base_id + 236 + 26): (b'KF01', 0x076e9319),  # near waterfall
-    (base_id + 236 + 27): (b'KF02', 0x2193f576),  # bungee near waterfall
-    (base_id + 236 + 28): (b'KF04', 0x2193f576),  # top of tall room
-    (base_id + 236 + 29): (b'KF05', 0xf68f73a6),  # on slide after leave
-    (base_id + 236 + 30): (b'GY01', 0x2193f576),  # on left wall near tubelet
-    (base_id + 236 + 31): (b'GY02', 0x2193f576),  # on mast below wall jump section
-    (base_id + 236 + 32): (b'GY03', 0x2193f576),  # on top of mast
-    (base_id + 236 + 33): (b'DB01', 0x2193f576),  # behind KK
-    (base_id + 236 + 34): (b'DB02', 0x76579669),  # on tikis near start
-    (base_id + 236 + 35): (b'DB02', 0xf68f73a6),  # on flower
-    (base_id + 236 + 36): (b'DB03', 0x2193f576),  # on clarinet
-    (base_id + 236 + 37): (b'DB04', 0x2193f576),  # on tiki near ent
-}
+REGION_KEY_PICKUP_IDS = {
+    (base_id + 216 + 1): (None, ),  # All FP crystals
+    (base_id + 216 + 2): (None, ),  # All MK crystals
+    (base_id + 216 + 3): (None, ),  # All CS crystals
+    (base_id + 216 + 4): (None, ),  # All SD crystals
+    (base_id + 216 + 5): (None, ),  # All FR crystals
+    (base_id + 216 + 6): (None, ),  # All DL crystals
+    (base_id + 216 + 7): (None, ),  # All ID crystals
+    (base_id + 216 + 8): (None, ),  # All DW crystals
 
+    
+
+}
+RUNESTONE_ITEM_IDS = {
+    (base_id + 0): (None, ), 
+    (base_id + 1): (None, ),
+    (base_id + 2): (None, ), 
+    (base_id + 3): (None, ),  
+    (base_id + 4): (None, ), 
+    (base_id + 5): (None, ), 
+    (base_id + 6): (None, ), 
+    (base_id + 7): (None, ), 
+    (base_id + 8): (None, ), 
+    (base_id + 9): (None, ), 
+    (base_id + 10): (None, ), 
+    (base_id + 11): (None, ), 
+    (base_id + 12): (None, ), 
+    
+
+}
+SHARD_ITEM_IDS = {
+    (base_id + 13): (None, ), 
+    (base_id + 14): (None, ), 
+    (base_id + 15): (None, ), 
+    (base_id + 16): (None, ), 
+    (base_id + 17): (None, ), 
+    (base_id + 18): (None, ), 
+    (base_id + 19): (None, ),
+    (base_id + 20): (None, ),
+}
+LEGENDARY_WEAPON_ITEM_IDS = {
+    (base_id + 25): (None, ), #good book
+    (base_id + 21): (None, ), #Ice axe
+    (base_id + 22): (None, ), #scimitar
+    (base_id + 23): (None, ), #javelin
+    (base_id + 24): (None, ), #bellows
+    (base_id + 26): (None, ), #Lamp
+    (base_id + 27): (None, ), #parchment
+    (base_id + 28): (None, ), #Lantern
+    (base_id + 29): (None, ), #soul savior
+    
+}
+REGION_KEY_ITEM_IDS = {
+    (base_id + 30): (None, ), #MK Region key
+    (base_id + 31): (None, ), 
+    (base_id + 32): (None, ),
+    (base_id + 33): (None, ), 
+    (base_id + 34): (None, ), 
+    (base_id + 35): (None, ), 
+    (base_id + 36): (None, ), 
+    (base_id + 37): (None, ), #BF Region Key
+
+    
+}
+WING_KEY_ITEM_IDS = {
+    (base_id + 38): (None, ),  #West Wing key
+    (base_id + 39): (None, ),  #East Wing Key
+    (base_id + 40): (None, ),  #Lower Tower Key
+}
+#do these need removed?
 valid_scenes = [
     b'HB01', b'HB02', b'HB03', b'HB04', b'HB05', b'HB06', b'HB07', b'HB08', b'HB09', b'HB10',
     b'JF01', b'JF02', b'JF03', b'JF04',
@@ -589,10 +270,10 @@ class GDLContext(CommonContext):
             if 'death_link' in args['slot_data']:
                 Utils.async_start(self.update_death_link(bool(args['slot_data']['death_link'])))
 
-            self.included_check_types |= CheckTypes.Bosses
-            self.included_check_types |= CheckTypes.Legendary_Weapons
+            self.included_check_types = CheckTypes.Bosses
+            self.included_check_types = CheckTypes.Legendary_Weapons
             
-            self.included_check_types |= CheckTypes.Treasure_Room
+            self.included_check_types = CheckTypes.Treasure_Room
         if cmd == 'ReceivedItems':
             if args["index"] >= self.last_rev_index:
                 self.last_rev_index = args["index"]

@@ -17,14 +17,15 @@ Items
 13 Runestones
 8 Shards
 9 Legendary Weapons (incl. Soul Savior)
-8 Region Keys (incl. Battlefield, not including starting region)
 3 Wing Keys (East + West+Lower Tower)
+Optionally, 8 Region Keys (incl. Battlefield, not including starting region)
 
 Locations
 All 13 Runestone Locations
 All 10 of the realm bosses (Shards + Skorne 1 & Skorne 2)
 All 9 of the Legendary Weapon locations
 All 8 of the Treasure Rooms
+All 8 vanilla realm unlocks
 
 ## What is the goal of Gauntlet: Dark Legacy?
 

@@ -14,7 +14,7 @@ from .Regions import create_regions
 from .Rom import GDLDeltaPatch
 from .Rules import set_rules
 from .names import ItemNames, ConnectionNames
-from .Groups import cen_and_west
+
 
 
 
@@ -56,9 +56,7 @@ Gauntlet Dark Legacy    ToDo
     item_name_to_id = {name: data.id for name, data in item_table.items()}
     location_name_to_id = location_table
 
-    item_name_groups = {
-        "CenAndWest": cen_and_west
-    }
+
     web = GauntletDarkLegacyWeb()
 
     def get_filler_item_name(self) -> str:
@@ -71,9 +69,10 @@ Gauntlet Dark Legacy    ToDo
         itempool = [ItemNames.yr_1,ItemNames.yr_2, ItemNames.yr_3, ItemNames.rd_1, ItemNames.rd_2, ItemNames.rd_3, ItemNames.bl_1, ItemNames.bl_2, ItemNames.bl_3, ItemNames.gn_1, ItemNames.gn_2, ItemNames.gn_3, ItemNames.bf_13,
                     ItemNames.shard_fp, ItemNames.shard_mk, ItemNames.shard_cs, ItemNames.shard_sd, ItemNames.shard_fr, ItemNames.shard_dl, ItemNames.shard_id, ItemNames.shard_dw,
                     ItemNames.lw_fp, ItemNames.lw_mk, ItemNames.lw_cs, ItemNames.lw_sd, ItemNames.lw_fr, ItemNames.lw_dl, ItemNames.lw_id, ItemNames.lw_dw, ItemNames.lw_dt,
-                    ItemNames.region_key_mk, ItemNames.region_key_cs, ItemNames.region_key_sd, ItemNames.region_key_fr, ItemNames.region_key_dl, ItemNames.region_key_id, ItemNames.region_key_dw, ItemNames.region_key_bf, 
+                
                     ItemNames.e_wing_key, ItemNames.w_wing_key, ItemNames.l_tower_key]
-
+        if self.options.randomize_world_order.value:
+            itempool += [ItemNames.region_key_mk, ItemNames.region_key_cs, ItemNames.region_key_sd, ItemNames.region_key_fr, ItemNames.region_key_dl, ItemNames.region_key_id, ItemNames.region_key_dw, ItemNames.region_key_bf]
         k = 0
         for item in self.multiworld.precollected_items[self.player]:
             if item.name in itempool and item.advancement:
