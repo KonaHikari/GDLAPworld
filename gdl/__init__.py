@@ -72,7 +72,7 @@ Gauntlet Dark Legacy    ToDo
                 
                     ItemNames.e_wing_key, ItemNames.w_wing_key, ItemNames.l_tower_key]
         if self.options.randomize_world_order.value:
-            itempool += [ItemNames.region_key_mk, ItemNames.region_key_cs, ItemNames.region_key_sd, ItemNames.region_key_fr, ItemNames.region_key_dl, ItemNames.region_key_id, ItemNames.region_key_dw, ItemNames.region_key_bf]
+            itempool += [ItemNames.region_key_mk, ItemNames.region_key_cs, ItemNames.region_key_sd, ItemNames.region_key_fr, ItemNames.region_key_dl, ItemNames.region_key_id, ItemNames.region_key_dw]
         k = 0
         for item in self.multiworld.precollected_items[self.player]:
             if item.name in itempool and item.advancement:

@@ -60,15 +60,15 @@ legendary_weapons_location_table = {
 }
 
 treasure_rooms_location_table = {
-    LocationNames.tr_fp: base_id + 210+1,
-    LocationNames.tr_mk: base_id + 210+2,
-    LocationNames.tr_cs: base_id + 210+3,
-    LocationNames.tr_sd: base_id + 210+4,
-    LocationNames.tr_fr: base_id + 210+5,
-    LocationNames.tr_dl: base_id + 210+6,
-    LocationNames.tr_id: base_id + 210+7,
-    LocationNames.tr_dw: base_id + 210+8,
-    LocationNames.tr_bf: base_id + 210+9,
+    LocationNames.tr_fp: base_id + 517+1,
+    LocationNames.tr_mk: base_id + 517+2,
+    LocationNames.tr_cs: base_id + 517+3,
+    LocationNames.tr_sd: base_id + 517+4,
+    LocationNames.tr_fr: base_id + 517+5,
+    LocationNames.tr_dl: base_id + 517+6,
+    LocationNames.tr_id: base_id + 517+7,
+    LocationNames.tr_dw: base_id + 517+8,
+    LocationNames.tr_bf: base_id + 517+9,
 }
 
 region_key_location_table = {

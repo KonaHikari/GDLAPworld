@@ -4,7 +4,7 @@ menu = "Menu"
 
 # Hub
 hub1 = f"{LevelNames.hub}1"
-west = "west Wing"
+west = "West Wing"
 east = "East Wing"
 lower = "lower tower"
 

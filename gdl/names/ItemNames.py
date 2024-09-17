@@ -43,7 +43,6 @@ region_key_fr = "Forest Realm Region Key"
 region_key_dl = "Desert Land Region Key"
 region_key_id = "Ice Domain Region Key"
 region_key_dw = "Dream World Region Key"
-region_key_bf = "Battlefields Region Key"
 # Wing keys
 wing_key = "Wing Keys"
 w_wing_key = "West Wing Key"

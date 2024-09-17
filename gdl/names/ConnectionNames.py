@@ -9,6 +9,7 @@ hub1_west = f"{RegionNames.hub1}->{RegionNames.west}"
 hub1_east = f"{RegionNames.hub1}->{RegionNames.east}"
 hub1_lower = f"{RegionNames.hub1}->{RegionNames.lower}"
 hub1_dt = f"{RegionNames.hub1}->{RegionNames.dt00}"
+hub1_uw = f"{RegionNames.hub1}->{RegionNames.uw00}"
 
 fp_hub1 = f"{RegionNames.fp00}->{RegionNames.hub1}"
 mk_hub1 = f"{RegionNames.mk00}->{RegionNames.hub1}"
@@ -16,6 +17,7 @@ west_hub1 = f"{RegionNames.west}->{RegionNames.hub1}"
 east_hub1 = f"{RegionNames.east}->{RegionNames.hub1}"
 lower_hub1 = f"{RegionNames.lower}->{RegionNames.hub1}"
 dt_hub1 = f"{RegionNames.dt00}->{RegionNames.hub1}"
+uw_hub1 = f"{RegionNames.uw00}->{RegionNames.hub1}"
 
 # FP
 fp00_fp01 = f"{RegionNames.fp00}->{RegionNames.fp01}"
@@ -177,9 +179,6 @@ dw06_dw00 = f"{RegionNames.dw06}->{RegionNames.dw00}"
 # Lower
 lower_bf00 = f"{RegionNames.lower}->{RegionNames.bf00}"
 bf00_lower = f"{RegionNames.bf00}->{RegionNames.lower}"
-
-lower_uw00 = f"{RegionNames.lower}->{RegionNames.uw00}"
-uw00_lower = f"{RegionNames.uw00}->{RegionNames.lower}"
 
 # BF
 bf00_bf01 = f"{RegionNames.bf00}->{RegionNames.bf01}"

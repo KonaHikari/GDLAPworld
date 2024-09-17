@@ -8,14 +8,14 @@
 - Microsoft .NET Framework 4.8 or higher
 - [Dolphin](https://dolphin-emu.org/download/)
 - Your Gauntlet: Dark Legacy, probably
-  named ``Gauntlet - Dark Legacy (USA).iso``.
+  named ``Gauntlet - Dark Legacy (Revision 1).iso``.
 
 ## Installation Procedures
 
 - Place ``GDL.apworld`` in ``lib/worlds/`` of your AP installation.
 - Place the included ``.pyd`` files and the ``dolphin_memory_engine`` folder into ``lib/`` of your AP installation.
 - Place the ISO in the root folder of your AP installation and make sure it's
-  named ``Gauntlet - Dark Legacy (USA).iso``.
+  named ``Gauntlet - Dark Legacy (Revision 1).iso``.
 
 For more information about .apworlds
 see [here](https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/apworld%20specification.md)

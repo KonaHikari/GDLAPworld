@@ -82,9 +82,11 @@ class GDLDeltaPatch(APContainer, metaclass=AutoPatchRegister):
         seed_hash = GDLDeltaPatch.get_seed_hash(opened_zipfile)
         seed_hash_offset = slot_name_offset + 0x40
         # always apply these patches
-        patches = [Patches.AP_SAVE_LOAD]
+        patches = [Patches.AP_SAVE_LOAD, Patches.BASE_REWARD_FIX]
         # conditional patches
-
+        randomize_world_order = GDLDeltaPatch.get_bool(opened_zipfile, "randomize_world_order")
+        if randomize_world_order:
+            patches += [Patches.RANDOMIZE_WORLD_ORDER]
 
         with open(iso, "rb+") as stream:
             # write patches
@@ -130,7 +132,7 @@ def get_base_rom_path(file_name: str = "") -> str:
     options: Utils.OptionsType = Utils.get_options()
     if not file_name:
         # file_name = options["gdl_options"]["rom_file"]
-        file_name = "Gauntlet - Dark Legacy (USA)"
+        file_name = "Gauntlet - Dark Legacy (Revision 1).iso"
     if not os.path.exists(file_name):
         file_name = Utils.user_path(file_name)
     return file_name

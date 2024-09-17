@@ -18,7 +18,7 @@ Items
 8 Shards
 9 Legendary Weapons (incl. Soul Savior)
 3 Wing Keys (East + West+Lower Tower)
-Optionally, 8 Region Keys (incl. Battlefield, not including starting region)
+Optionally, 7 Region Keys (Always start with either FP or MK[Only FP to start with for now, may add MK as possible starting region later])
 
 Locations
 All 13 Runestone Locations

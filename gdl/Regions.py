@@ -30,12 +30,12 @@ def _get_locations_for_region(locations: GDLLocation, name: str) -> List[str]:
 
 exit_table: Dict[str, List[str]] = {
     RegionNames.menu: [ConnectionNames.start_game],
-    RegionNames.hub1: [ConnectionNames.hub1_fp,ConnectionNames.hub1_mk,ConnectionNames.hub1_west,ConnectionNames.hub1_east,ConnectionNames.hub1_lower, ConnectionNames.hub1_dt],
+    RegionNames.hub1: [ConnectionNames.hub1_fp,ConnectionNames.hub1_mk,ConnectionNames.hub1_west,ConnectionNames.hub1_east,ConnectionNames.hub1_lower, ConnectionNames.hub1_dt, ConnectionNames.hub1_uw],
     RegionNames.west: [ConnectionNames.west_hub1, ConnectionNames.west_cs00, ConnectionNames.west_fr00,
                        ConnectionNames.west_sd00],
     RegionNames.east: [ConnectionNames.east_hub1, ConnectionNames.east_dl00, ConnectionNames.east_id00,
                        ConnectionNames.east_dw00],
-    RegionNames.lower: [ConnectionNames.lower_hub1,ConnectionNames.lower_uw00,ConnectionNames.lower_bf00],
+    RegionNames.lower: [ConnectionNames.lower_hub1,ConnectionNames.lower_bf00],
     RegionNames.fp00: [ConnectionNames.fp00_fp01, ConnectionNames.fp00_fp02, ConnectionNames.fp00_fp03, ConnectionNames.fp00_fp04, ConnectionNames.fp00_fp05, ConnectionNames.fp_hub1],
     RegionNames.fp01: [ConnectionNames.fp01_fp00],
     RegionNames.fp02: [ConnectionNames.fp02_fp00],
@@ -93,7 +93,7 @@ exit_table: Dict[str, List[str]] = {
     RegionNames.bf03: [ConnectionNames.bf03_bf00],
     RegionNames.bf04: [ConnectionNames.bf04_bf00],
     RegionNames.dt00: [ConnectionNames.dt_hub1],
-    RegionNames.uw00: [ConnectionNames.uw00_lower],
+    RegionNames.uw00: [ConnectionNames.uw_hub1],
 }
 
 
